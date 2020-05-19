@@ -1,0 +1,27 @@
+extends ../layouts/common
+
+block content
+  .d-flex.alight-items-center
+    h1 Book list
+    .ml-auto
+      a.btn.btn-primary(href="/books/create") New
+      
+  table.table.table-striped
+    thead
+      tr
+        th(scope='col') Title
+        th(scope='col') Description
+        th(scope='col') Update
+        th(scope='col') Delete
+    tbody
+      each book in books
+        tr
+          td= book.title
+
+          td= book.description
+
+          td
+            a.btn.btn-warning(href="/books/update/" + book.id) Update
+
+          td
+            a.btn.btn-danger(href="/books/delete/" + book.id) Delete

@@ -1,0 +1,14 @@
+extends ../layouts/common
+
+block content
+
+  h1 Update user
+  if errors
+    each error in errors
+      .alert.alert-danger
+        span= error
+  form(action='/users/update', method='post').form-group.row
+    input(type="hidden", name="id", value=user.id)
+    label.form-label.m-2 Name 
+    input.form-control.col-6.m-2(type="text", name="name", value= user.name)
+    button.btn.btn-success.m-2 Update

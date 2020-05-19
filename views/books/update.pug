@@ -1,0 +1,21 @@
+extends ../layouts/common
+
+block content
+
+  h1 Update Book
+  if errors
+    each error in errors
+      .alert.alert-danger
+        span= error
+  form(action="/books/update", method="POST", enctype="multipart/form-data")
+    .form-group.row
+      input(type="hidden", name="id", value=book.id)
+      label.col-form-label.col-3 Title
+      input.form-control.col-6(type="text", name="title", value=book.title)
+    .form-group.row
+      label.col-form-label.col-3 Description
+      input.form-control.col-6(type="text", name="description", value=book.description)
+    .form-group.row
+      label.col-form-label.col-3 Cover image
+      input.form-control-file.col-6(type="file", name="avatar")
+    button.btn.btn-success Update
