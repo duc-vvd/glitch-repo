@@ -1,0 +1,107 @@
+extends ../layouts/common
+
+block content
+
+  .d-flex.alight-items-center
+    h1 Transacntions
+    .ml-auto
+      a.btn.btn-primary(href="/transactions/create") New
+  
+  table.table.table-striped
+    thead
+      tr
+        th(scope='col') User Name
+        th(scope='col') Book title
+        th(scope='col') Action
+    tbody
+      each item in data
+        tr
+          td= item.user.name
+          td= item.book.title
+          td
+            if item.isComplete
+              span.btn Completed
+            else
+              a.btn.btn-success(href="/transactions/" + item.transactionId + "/complete") Complete
+  .container
+      .d-flex.justify-content-center
+        nav(aria-label='Page navigation example')
+          ul.pagination
+            - var n = 2
+            if page - n <= 1
+              if (page + n) > pageMax && page != pageMax
+                li.page-item
+                  a.page-link(href='/transactions?p=' + (page - 1), aria-label='Previous')
+                    span(aria-hidden='true') «
+                - for (var x = 1; x <= pageMax; x++)
+                  li.page-item(class= page==x?"active":"")
+                    a.page-link(href='/transactions?p=' + x)= x
+                li.page-item
+                  a.page-link(href='/transactions?p=' + (page + 1), aria-label='Next')
+                    span(aria-hidden='true') »
+              else if page == pageMax && page != 1
+                li.page-item
+                  a.page-link(href='/transactions?p=' + (page - 1), aria-label='Previous')
+                    span(aria-hidden='true') «
+                - for (var x = 1; x <= pageMax; x++)
+                  li.page-item(class= page==x?"active":"")
+                    a.page-link(href='/transactions?p=' + x)= x
+              else if (page + n) == pageMax && page != 1
+                li.page-item
+                  a.page-link(href='/transactions?p=' + (page - 1), aria-label='Previous')
+                    span(aria-hidden='true') «
+                - for(var x = 1; x <= pageMax; x++)
+                  li.page-item(class=page==x?"active":"")
+                    a.page-link(href="/transactions?p=" + x)= x
+                li.page-item
+                  a.page-link(href='/transactions?p=' + (page + 1), aria-label='Next')
+                    span(aria-hidden='true') »
+              else if page != 1
+                li.page-item
+                  a.page-link(href='/transactions?p=' + (page - 1), aria-label='Previous')
+                    span(aria-hidden='true') «
+                - for (var x = 1; x <= page + n; x++)
+                  li.page-item(class= page==x?"active":"")
+                    a.page-link(href='/transactions?p=' + x)= x
+                li.page-item.disabled
+                  a.page-link(href='#', tabindex='-1', aria-disabled='true') ...
+                li.page-item
+                  a.page-link(href='/transactions?p=' + (page + 1), aria-label='Next')
+                    span(aria-hidden='true') »
+              else if page == 1
+                
+                - for (var x = 1; x <= pageMax; x++)
+                  li.page-item(class= page==x?"active":"")
+                    a.page-link(href='/transactions?p=' + x)= x
+              else
+                - for (var x = 1; x <= page + n; x++)
+                  li.page-item(class= page==x?"active":"")
+                    a.page-link(href='/transactions?p=' + x)= x
+                li.page-item.disabled
+                  a.page-link(href='#', tabindex='-1', aria-disabled='true') ...
+                li.page-item
+                  a.page-link(href='/transactions?p=' + (page + 1), aria-label='Next')
+                    span(aria-hidden='true') »
+            else if (page + n) >= pageMax
+              li.page-item
+                a.page-link(href='/transactions?p=' + (page - 1), aria-label='Previous')
+                  span(aria-hidden='true') «
+              li.page-item.disabled
+                a.page-link(href='#', tabindex='-1', aria-disabled='true') ...
+              - for (var x = page - n; x <= pageMax; x++ )	
+                li.page-item(class= page==x?"active":"")
+                  a.page-link(href='/transactions?p=' + x)= x
+            else 
+              li.page-item
+              a.page-link(href='/transactions?p=' + (page - 1), aria-label='Previous')
+                span(aria-hidden='true') «
+              li.page-item.disabled
+                a.page-link(href='#', tabindex='-1', aria-disabled='true') ...
+              - for (var x = page - n; x < page + n; x++ )	
+                li.page-item(class= page==x?"active":"")
+                  a.page-link(href='/transactions?p=' + x)= x	
+              li.page-item.disabled
+                a.page-link(href='#', tabindex='-1', aria-disabled='true') ...	
+              li.page-item
+                a.page-link(href='/transactions?p=' + (page + 1), aria-label='Next')
+                  span(aria-hidden='true') »

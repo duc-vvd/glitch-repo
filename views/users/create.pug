@@ -1,0 +1,24 @@
+extends ../layouts/common
+
+block content
+
+  h1 Create user
+  
+  if errors
+    each error in errors
+      .alert.alert-danger
+        span= error
+  form(action='/users/create', method='post')
+    .form-group
+      label.mr-2.form-label Name 
+      input.mr-2.form-control.col-6(type='text', name="name", value=values?values.name:'')
+    .form-group
+      label.mr-2.form-label Email 
+      input.mr-2.form-control.col-6(type='email', name="email", value=values?values.email:'')
+    .form-group
+      label.mr-2.form-label Password 
+      input.mr-2.form-control.col-6(type='password', name="password")
+    .form-group
+      label.mr-2.form-label Confirm password 
+      input.mr-2.form-control.col-6(type='password', name="confirmPassword")
+    button.btn.btn-primary Create

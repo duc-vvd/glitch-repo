@@ -1,0 +1,16 @@
+extends ../layouts/common
+
+block content
+
+  h1 Update profile
+  
+  if errors
+    each error in errors
+      .alert.alert-danger
+        span= error
+  form(action='/profile/avatar', method='post', enctype="multipart/form-data")
+    input(type="hidden", name="id", value=user.id)
+    .form-group
+      label.mr-2.form-label Avatar
+      input.mr-2.form-control-file.col-6(type="file", name="avatar")
+    button.btn.btn-primary Update
